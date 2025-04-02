@@ -5,6 +5,7 @@ import com.axconstantino.inventory.products.domain.model.Product;
 import com.axconstantino.inventory.products.infrastructure.dto.ProductDTO;
 import com.axconstantino.inventory.products.infrastructure.dto.UpdateProductDTO;
 import com.axconstantino.inventory.products.infrastructure.mapper.ProductMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
+@Validated
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class ProductController {
     private final ProductMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Void> createProduct(@Validated @RequestBody ProductDTO createRequest) {
+    public ResponseEntity<Void> createProduct(@Valid @RequestBody ProductDTO createRequest) {
         Product newProduct = mapper.toDomainFromDTO(createRequest);
         productService.createProduct(newProduct);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -56,7 +57,7 @@ public class ProductController {
     @PutMapping("/update/{productId}")
     public ResponseEntity<String> updateProduct(
             @PathVariable Long productId,
-            @Validated @RequestBody UpdateProductDTO updateRequest) {
+            @Valid @RequestBody UpdateProductDTO updateRequest) {
         productService.updateProduct(productId, updateRequest);
         return ResponseEntity.ok("Product updated successfully");
     }
