@@ -5,7 +5,6 @@ import com.axconstantino.inventory.products.domain.model.Product;
 import com.axconstantino.inventory.products.infrastructure.dto.ProductDTO;
 import com.axconstantino.inventory.products.infrastructure.dto.UpdateProductDTO;
 import com.axconstantino.inventory.products.infrastructure.mapper.ProductMapper;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Validated
+
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
@@ -25,20 +24,20 @@ public class ProductController {
     private final ProductMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Void> createProduct(@Valid @RequestBody ProductDTO createRequest) {
+    public ResponseEntity<Void> createProduct(@Validated @RequestBody ProductDTO createRequest) {
         Product newProduct = mapper.toDomainFromDTO(createRequest);
         productService.createProduct(newProduct);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/id/{productId}")
+    @GetMapping("/{productId}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
         Product product = productService.getProductById(id);
         ProductDTO productDTO = mapper.toDTO(product);
         return ResponseEntity.ok(productDTO);
     }
 
-    @GetMapping("/sku/{sku}")
+    @GetMapping("/{sku}")
     public ResponseEntity<ProductDTO> getProductBySku(@PathVariable String sku) {
         Product product = productService.getProductBySku(sku);
         ProductDTO productDTO = mapper.toDTO(product);
@@ -54,11 +53,12 @@ public class ProductController {
         return ResponseEntity.ok(productDTOs);
     }
 
-    @PutMapping("/{productId}")
+    @PutMapping("/update/{productId}")
     public ResponseEntity<String> updateProduct(
             @PathVariable Long productId,
-            @Valid @RequestBody UpdateProductDTO updateRequest) {
-        productService.updateProduct(productId, updateRequest);
+            @Validated @RequestBody UpdateProductDTO updateRequest) {
+        Product updatedProduct = mapper.toDomainFromDTO(updateRequest);
+        productService.updateProduct(productId, updatedProduct);
         return ResponseEntity.ok("Product updated successfully");
     }
 

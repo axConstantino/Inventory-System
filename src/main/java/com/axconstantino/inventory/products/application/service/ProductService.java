@@ -3,7 +3,7 @@ package com.axconstantino.inventory.products.application.service;
 import com.axconstantino.inventory.products.application.usecase.*;
 import com.axconstantino.inventory.products.domain.model.Product;
 import com.axconstantino.inventory.products.domain.model.ProductRepositoryPort;
-import com.axconstantino.inventory.products.infrastructure.dto.UpdateProductDTO;
+import com.axconstantino.inventory.exception.ResourceNotFoundException;
 import com.axconstantino.inventory.products.infrastructure.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,13 +26,13 @@ public class ProductService implements GetAllProductsByCategory, GetProductById,
     @Override
     public Product getProductById(Long id) {
         return productRepositoryPort.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
     }
 
     @Override
     public Product getProductBySku(String sku) {
         return productRepositoryPort.findBySku(sku)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with SKU " + sku + " not found"));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ProductService implements GetAllProductsByCategory, GetProductById,
     }
 
     @Override
-    public void updateProduct(Long productId, UpdateProductDTO updateRequest) {
+    public void updateProduct(Long productId, Product updateRequest) {
         productRepositoryPort.update(productId, updateRequest);
     }
 

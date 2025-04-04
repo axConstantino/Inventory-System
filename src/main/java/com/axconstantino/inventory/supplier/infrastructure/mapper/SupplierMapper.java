@@ -13,8 +13,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface SupplierMapper {
     Supplier toDomain(SupplierEntity supplierEntity);
     Supplier toDomain(SupplierDTO supplierDTO);
+    Supplier toDomain(UpdateSupplierRequest updateSupplierRequest);
     SupplierEntity toEntity(Supplier supplier);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateSupplierFromDTO(UpdateSupplierRequest updateRequest, @MappingTarget SupplierEntity supplier);
+    void update(@MappingTarget SupplierEntity supplier, Supplier updateRequest);
 }

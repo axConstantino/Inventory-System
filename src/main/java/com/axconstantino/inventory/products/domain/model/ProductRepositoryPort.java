@@ -1,6 +1,5 @@
 package com.axconstantino.inventory.products.domain.model;
 
-import com.axconstantino.inventory.products.infrastructure.dto.UpdateProductDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,6 +10,6 @@ public interface ProductRepositoryPort {
     Page<Product> findByCategory(String category, Pageable pageable);
     Optional<Product> findById(Long id);
     void save(Product product);
-    void update(Long productId, UpdateProductDTO updateRequest);
+    void update(Long productId, Product updateRequest);
     void delete(Long id);
 }

@@ -11,7 +11,8 @@ import org.mapstruct.MappingTarget;
 public interface ProductMapper {
     Product toDomain(ProductEntity entity);
     Product toDomainFromDTO(ProductDTO request);
+    Product toDomainFromDTO(UpdateProductDTO request);
     ProductEntity toEntity(Product product);
     ProductDTO toDTO(Product product);
-    void updateFromDTO(@MappingTarget ProductEntity product, UpdateProductDTO updateRequest);
+    void update(@MappingTarget ProductEntity product, Product updateRequest);
 }

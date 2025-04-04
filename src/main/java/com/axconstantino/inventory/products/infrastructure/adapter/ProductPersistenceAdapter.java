@@ -2,6 +2,7 @@ package com.axconstantino.inventory.products.infrastructure.adapter;
 
 import com.axconstantino.inventory.products.domain.model.Product;
 import com.axconstantino.inventory.products.domain.model.ProductRepositoryPort;
+import com.axconstantino.inventory.exception.ResourceNotFoundException;
 import com.axconstantino.inventory.products.infrastructure.database.ProductEntity;
 import com.axconstantino.inventory.products.infrastructure.database.ProductJpaRepository;
 import com.axconstantino.inventory.products.infrastructure.dto.UpdateProductDTO;
@@ -44,27 +45,25 @@ public class ProductPersistenceAdapter implements ProductRepositoryPort {
     }
 
     @Override
-    public Product save(Product product) {
+    public void save(Product product) {
         ProductEntity productEntity = mapper.toEntity(product);
-        productEntity = productJpaRepository.save(productEntity);
-        return mapper.toDomain(productEntity);
+        productJpaRepository.save(productEntity);
     }
 
     @Override
-    public void update(Long productId, UpdateProductDTO updateRequest) {
+    public void update(Long productId, Product updateRequest) {
         ProductEntity product = productJpaRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-        mapper.updateFromDTO(product, updateRequest);
-        product = productJpaRepository.save(product);
-        return mapper.toDomain(product);
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + productId + " not found"));
+        mapper.update(product, updateRequest);
+        productJpaRepository.save(product);
     }
 
     @Override
     public void delete(Long id) {
-        if (productJpaRepository.existsById(id)) {
-            productJpaRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Product not found");
+        if (!productJpaRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
+        productJpaRepository.deleteById(id);
     }
+
 }

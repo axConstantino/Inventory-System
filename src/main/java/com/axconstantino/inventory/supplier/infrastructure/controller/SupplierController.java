@@ -1,6 +1,7 @@
 package com.axconstantino.inventory.supplier.infrastructure.controller;
 
 import com.axconstantino.inventory.supplier.application.usecase.*;
+import com.axconstantino.inventory.supplier.domain.model.Supplier;
 import com.axconstantino.inventory.supplier.infrastructure.dto.SupplierDTO;
 import com.axconstantino.inventory.supplier.infrastructure.dto.UpdateSupplierRequest;
 import com.axconstantino.inventory.supplier.infrastructure.mapper.SupplierMapper;
@@ -60,7 +61,8 @@ public class SupplierController {
             @PathVariable Long supplierId,
             @Valid @RequestBody UpdateSupplierRequest updateRequest
     ) {
-        updateSupplier.updateSupplier(supplierId, updateRequest);
+        Supplier updatedSupplier = supplierMapper.toDomain(updateRequest);
+        updateSupplier.updateSupplier(supplierId, updatedSupplier);
         return ResponseEntity.ok().build();
     }
 
