@@ -31,14 +31,14 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/{productId}")
+    @GetMapping("/id/{productId}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
         Product product = productService.getProductById(id);
         ProductDTO productDTO = mapper.toDTO(product);
         return ResponseEntity.ok(productDTO);
     }
 
-    @GetMapping("/{sku}")
+    @GetMapping("/sku/{sku}")
     public ResponseEntity<ProductDTO> getProductBySku(@PathVariable String sku) {
         Product product = productService.getProductBySku(sku);
         ProductDTO productDTO = mapper.toDTO(product);
@@ -54,7 +54,7 @@ public class ProductController {
         return ResponseEntity.ok(productDTOs);
     }
 
-    @PutMapping("/update/{productId}")
+    @PutMapping("/{productId}")
     public ResponseEntity<String> updateProduct(
             @PathVariable Long productId,
             @Valid @RequestBody UpdateProductDTO updateRequest) {

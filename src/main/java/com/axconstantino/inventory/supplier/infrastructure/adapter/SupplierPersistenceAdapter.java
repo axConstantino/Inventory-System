@@ -4,6 +4,7 @@ import com.axconstantino.inventory.supplier.domain.model.Supplier;
 import com.axconstantino.inventory.supplier.domain.model.SupplierRepositoryPort;
 import com.axconstantino.inventory.supplier.infrastructure.database.SupplierEntity;
 import com.axconstantino.inventory.supplier.infrastructure.database.SupplierJpaRepository;
+import com.axconstantino.inventory.supplier.infrastructure.dto.UpdateSupplierRequest;
 import com.axconstantino.inventory.supplier.infrastructure.mapper.SupplierMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,11 +44,11 @@ public class SupplierPersistenceAdapter implements SupplierRepositoryPort {
     }
 
     @Override
-    public void update(Long id, Supplier supplier) {
+    public void update(Long id, UpdateSupplierRequest updateRequest) {
         SupplierEntity existingEntity = supplierJpaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Supplier with id " + id + " does not exist"));
 
-        mapper.updateEntityFromDomain(supplier, existingEntity);
+        mapper.updateSupplierFromDTO(updateRequest, existingEntity);
         supplierJpaRepository.save(existingEntity);
     }
 
