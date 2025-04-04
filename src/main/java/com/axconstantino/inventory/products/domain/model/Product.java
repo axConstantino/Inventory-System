@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Product {
     private Long id;
+    private Double price;
     private String sku; // Stock Keeping Unit
     private String name;
     private String description;

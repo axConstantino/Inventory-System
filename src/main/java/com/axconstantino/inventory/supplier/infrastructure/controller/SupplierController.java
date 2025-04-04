@@ -2,6 +2,7 @@ package com.axconstantino.inventory.supplier.infrastructure.controller;
 
 import com.axconstantino.inventory.supplier.application.usecase.*;
 import com.axconstantino.inventory.supplier.infrastructure.dto.SupplierDTO;
+import com.axconstantino.inventory.supplier.infrastructure.dto.UpdateSupplierRequest;
 import com.axconstantino.inventory.supplier.infrastructure.mapper.SupplierMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,10 +58,9 @@ public class SupplierController {
     @PutMapping("/{supplierId}")
     public ResponseEntity<Void> updateSupplier(
             @PathVariable Long supplierId,
-            @Valid @RequestBody SupplierDTO supplierDTO
+            @Valid @RequestBody UpdateSupplierRequest updateRequest
     ) {
-        var supplier = supplierMapper.toDomain(supplierDTO);
-        updateSupplier.updateSupplier(supplierId, supplier);
+        updateSupplier.updateSupplier(supplierId, updateRequest);
         return ResponseEntity.ok().build();
     }
 

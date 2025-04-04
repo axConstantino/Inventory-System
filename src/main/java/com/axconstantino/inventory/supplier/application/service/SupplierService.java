@@ -3,6 +3,7 @@ package com.axconstantino.inventory.supplier.application.service;
 import com.axconstantino.inventory.supplier.application.usecase.*;
 import com.axconstantino.inventory.supplier.domain.model.Supplier;
 import com.axconstantino.inventory.supplier.domain.model.SupplierRepositoryPort;
+import com.axconstantino.inventory.supplier.infrastructure.dto.UpdateSupplierRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,11 +37,11 @@ public class SupplierService implements GetSupplierById, GetSupplierByName, GetA
     }
 
     @Override
-    public void updateSupplier(Long id, Supplier updatedSupplier) {
+    public void updateSupplier(Long id, UpdateSupplierRequest updateRequest) {
         if (supplierRepositoryPort.findById(id).isEmpty()) {
             throw new IllegalArgumentException("Supplier with id " + id + " does not exist");
         }
-        supplierRepositoryPort.update(id, updatedSupplier);
+        supplierRepositoryPort.update(id, updateRequest);
     }
 
     @Override
