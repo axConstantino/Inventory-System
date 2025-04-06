@@ -1,7 +1,7 @@
 package com.axconstantino.inventory.supplier.infrastructure.adapter;
 
 import com.axconstantino.inventory.supplier.domain.model.Supplier;
-import com.axconstantino.inventory.supplier.domain.model.SupplierRepositoryPort;
+import com.axconstantino.inventory.supplier.domain.repository.SupplierRepositoryPort;
 import com.axconstantino.inventory.supplier.infrastructure.database.SupplierEntity;
 import com.axconstantino.inventory.supplier.infrastructure.database.SupplierJpaRepository;
 import com.axconstantino.inventory.supplier.infrastructure.mapper.SupplierMapper;

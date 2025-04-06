@@ -3,7 +3,7 @@ package com.axconstantino.inventory.supplier.application.service;
 import com.axconstantino.inventory.exception.ResourceNotFoundException;
 import com.axconstantino.inventory.supplier.application.usecase.*;
 import com.axconstantino.inventory.supplier.domain.model.Supplier;
-import com.axconstantino.inventory.supplier.domain.model.SupplierRepositoryPort;
+import com.axconstantino.inventory.supplier.domain.repository.SupplierRepositoryPort;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

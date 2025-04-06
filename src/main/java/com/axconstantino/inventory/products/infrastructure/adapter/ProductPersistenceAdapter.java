@@ -1,11 +1,10 @@
 package com.axconstantino.inventory.products.infrastructure.adapter;
 
 import com.axconstantino.inventory.products.domain.model.Product;
-import com.axconstantino.inventory.products.domain.model.ProductRepositoryPort;
+import com.axconstantino.inventory.products.domain.repository.ProductRepositoryPort;
 import com.axconstantino.inventory.exception.ResourceNotFoundException;
 import com.axconstantino.inventory.products.infrastructure.database.ProductEntity;
 import com.axconstantino.inventory.products.infrastructure.database.ProductJpaRepository;
-import com.axconstantino.inventory.products.infrastructure.dto.UpdateProductDTO;
 import com.axconstantino.inventory.products.infrastructure.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,5 +1,6 @@
-package com.axconstantino.inventory.products.domain.model;
+package com.axconstantino.inventory.products.domain.repository;
 
+import com.axconstantino.inventory.products.domain.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
