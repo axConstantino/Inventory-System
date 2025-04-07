@@ -1,5 +1,6 @@
 package com.axconstantino.inventory.inventory.application.service;
 
+import com.axconstantino.inventory.exception.InsufficientStockException;
 import com.axconstantino.inventory.exception.ResourceNotFoundException;
 import com.axconstantino.inventory.inventory.application.usecase.AdjustStockLevel;
 import com.axconstantino.inventory.inventory.application.usecase.GetStockLevelByProductId;
@@ -36,7 +37,7 @@ public class StockLevelService implements GetStockLevelByProductId, AdjustStockL
         int newQuantity = currentQuantity + quantityChange;
 
         if (newQuantity < 0) {
-            throw new RuntimeException("Insufficient stock for product ID: " + productId + ". Required: " + Math.abs(quantityChange) + ", available: " + currentQuantity);
+            throw new InsufficientStockException("Insufficient stock for product ID: " + productId + ". Required: " + Math.abs(quantityChange) + ", available: " + currentQuantity);
         }
 
         stockLevel.setQuantityOnHand(newQuantity);
